@@ -68,9 +68,9 @@ it explicit. Tune it in `fractional_sigma()`.
    (Drake). ⚠ Its final sentence — that decentralised proof-of-work "may offer a
    partial technological foundation for the amity Sagan envisioned" — is the most
    advocacy-adjacent line in the paper and sits in mild tension with the
-   Bitcoin-as-proxy framing of the reframe. Decide whether to keep, soften, or cut.
-2. **Fixed figure order.** Your original has Fig 2 = linear-zoom, Fig 3 = ΔP. The
-   first compile had them swapped (and referenced out of order). Now matches your
+   Bitcoin-as-proxy framing of the reframe.
+2. **Fixed figure order.** original has Fig 2 = linear-zoom, Fig 3 = ΔP. The
+   first compile had them swapped (and referenced out of order). Now matches
    original: Fig 1 log, Fig 2 linear, Fig 3 ΔP, Fig 4 KSN.
 3. **Fixed citation rendering.** Added the `authoryear` class option, so citations
    render as "Kardashev (1964)" etc. The first compile showed broken numeric
@@ -78,27 +78,8 @@ it explicit. Tune it in `fractional_sigma()`.
    (If Acta's editor insists on numbered references, remove `authoryear` from the
    class options in `main.tex` and switch to `\bibliographystyle{elsarticle-num}`.)
 
-All key numbers were checked against your original and match (P(1965)=4.95 TW,
+All key numbers were checked against original and match (P(1965)=4.95 TW,
 P(2024)=20.16 TW, b=2.44×10¹¹, r=2.01%, ΔWAIC=5.5, W=0.925, p=0.0014,
 substitution 7.66 TW / 3.12×10¹¹ / 1.85% / 8.9×10⁴ H₀⁻¹, etc.).
 
-## Decisions still yours
 
-- **Affiliation.** Settled: `main.tex` lists Western Sydney University (no
-  qualifier), confirmed with Miroslav Filipović. To drop it entirely: delete the
-  `\address[wsu]{…}` line and remove `wsu` from `\author[iate,wsu]{…}`.
-- **Title.** A SETI-forward alternative is commented under the current title.
-- **Doomsday §3.6 final sentence** (see point 1 above).
-
-## Before submission
-
-- Switch the class option `[preprint]` → `[review]` (commented line ready).
-- Verify DOIs / article IDs in `references.bib` against NASA ADS.
-- The embedded figures were extracted from your PDF; if you still have the
-  original matplotlib sources you may prefer to use those (and regenerate Fig 1/2
-  with the script above).
-
-## Build note
-`body.tex` and the bibliography were validated by a local compile (all
-references resolve, no LaTeX errors). Final Elsevier styling is applied by
-`elsarticle` in Overleaf.
