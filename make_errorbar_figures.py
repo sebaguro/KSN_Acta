@@ -6,11 +6,10 @@
 #  style matching the originals, and prints the robustness numbers quoted
 #  in the Figure 1 / Figure 2 captions and in Section 3.3.
 #
-#  Outputs (drop these into the Overleaf project's  figures/  folder):
-#     fig1_energy_loglog.pdf   <- Figure 1 (log axis)  + error bars
-#     fig2_energy_linear.pdf   <- Figure 2 (linear axis) + error bars
-#  The manuscript's \includegraphics paths are extension-less, so once
-#  these PDFs are in figures/, recompiling picks them up automatically.
+#  Outputs (the manuscript includes the PNGs from its  figures/  folder):
+#     fig1_energy_loglog.{png,pdf}   <- Figure 1 (log axis) + error bars
+#     fig2_energy_linear.{png,pdf}   <- Figure 2 (linear axis, in units of
+#                                       10^13 W) + error bars
 #
 #  ABOUT THE ERROR BARS — please read.
 #  OWID / the Energy Institute / the EIA do NOT publish formal per-year
@@ -26,16 +25,19 @@
 #     pip install numpy scipy matplotlib
 #
 #  USAGE
+#     python make_errorbar_figures.py               # the copy of the data in data/
 #     python make_errorbar_figures.py --csv /path/to/owid-energy-data.csv
 #     python make_errorbar_figures.py --demo        # plumbing test only
+#  Figures are written to outputs/figures/.
 #
 #  CSV format: the OWID owid-energy-data.csv, with columns
 #     country , year , primary_energy_consumption     (TWh/yr)
 #  Rows kept: country == "World", 1965 <= year <= 2024.
-#  Download: https://github.com/owid/energy-data
+#  The default is data/owid_world_energy_1965_2024.csv (see data/README.md).
 # =====================================================================
 
 import argparse
+import os
 import sys
 import numpy as np
 
@@ -48,6 +50,9 @@ SOLAR_INSOLATION = 1.74e17                    # solar insolation at Earth (W)
 T0 = 1964                                     # time origin (Kardashev 1964)
 KARDASHEV_RATE = 0.01                         # the 1%/yr assumption under test
 MJD_2000 = 51544.5                            # MJD of 2000-01-01
+HERE = os.path.dirname(os.path.abspath(__file__))
+DEFAULT_CSV = os.path.join(HERE, "data", "owid_world_energy_1965_2024.csv")
+FIGDIR = os.path.join(HERE, "outputs", "figures")
 
 
 def year_to_mjd(y):
@@ -169,7 +174,7 @@ def figure1_loglog(years, P, sigma, lin_unw, lin_w, expo, tag=""):
     # data with error bars
     ax.errorbar(years, P, yerr=sigma, fmt="o", ms=4.5, color="k", ecolor="0.45",
                 elinewidth=0.9, capsize=2, zorder=6,
-                label="OWID / EI World data (1965--2024)")
+                label="OWID / EI World data (1965–2024)")
     # model curves: unweighted OLS (the paper's headline fit) and the
     # 1/sigma_i^2-weighted fit (consistent with the error bars shown)
     ax.plot(xx, lin_unw["a"] + lin_unw["b"] * tt, "--", color="tab:blue", lw=1.6,
@@ -179,7 +184,7 @@ def figure1_loglog(years, P, sigma, lin_unw, lin_w, expo, tag=""):
             label=r"Linear, weighted by $1/\sigma_i^2$ ($b{=}%.2f{\times}10^{11}$, $R^2{=}%.3f$)"
                   % (lin_w["b"] / 1e11, lin_w["R2"]))
     ax.plot(xx, expo["a0"] * np.exp(expo["r"] * tt), "-", color="tab:red", lw=1.6,
-            label=r"Model 2: Exp $r{=}%.2f\%%$/yr ($R^2{=}%.4f$)" % (100 * expo["r"], expo["R2"]))
+            label=r"Model 2: Exp $r{=}%.2f\%%$/yr ($R^2{=}%.3f$)" % (100 * expo["r"], expo["R2"]))
     ax.plot(xx, P[0] * (1.0 + KARDASHEV_RATE) ** (xx - years[0]), ":",
             color="sandybrown", lw=1.6, label="Kardashev $r=1\\%$/yr")
     # threshold lines
@@ -205,8 +210,9 @@ def figure1_loglog(years, P, sigma, lin_unw, lin_w, expo, tag=""):
                 fontsize=22, color="red", alpha=0.25, ha="center", va="center",
                 rotation=20)
     fig.tight_layout()
-    fig.savefig("fig1_energy_loglog.pdf")
-    fig.savefig("fig1_energy_loglog.png", dpi=300)
+    fig.savefig(os.path.join(FIGDIR, "fig1_energy_loglog.pdf"),
+                metadata={"CreationDate": None})
+    fig.savefig(os.path.join(FIGDIR, "fig1_energy_loglog.png"), dpi=300)
     plt.close(fig)
 
 
@@ -215,31 +221,32 @@ def figure2_linear(years, P, sigma, lin_unw, lin_w, expo, tag=""):
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
 
+    U = 1e13                                   # vertical axis in units of 10^13 W (R2-19)
     t = years - T0
     x_lo, x_hi = 1965, 2030
     tt = np.linspace(x_lo - T0, x_hi - T0, 400)
     xx = tt + T0
 
     fig, ax = plt.subplots(figsize=(9.5, 4.4))
-    ax.errorbar(years, P, yerr=sigma, fmt="o", ms=4.5, color="k", ecolor="0.45",
+    ax.errorbar(years, P / U, yerr=sigma / U, fmt="o", ms=4.5, color="k", ecolor="0.45",
                 elinewidth=0.9, capsize=2, zorder=6,
-                label="OWID / EI World data (1965--2024)")
-    ax.plot(xx, lin_unw["a"] + lin_unw["b"] * tt, "--", color="tab:blue", lw=1.6,
+                label="OWID / EI World data (1965–2024)")
+    ax.plot(xx, (lin_unw["a"] + lin_unw["b"] * tt) / U, "--", color="tab:blue", lw=1.6,
             label=r"Model 1: Linear OLS ($b{=}%.2f{\times}10^{11}$, $R^2{=}%.3f$)"
                   % (lin_unw["b"] / 1e11, lin_unw["R2"]))
-    ax.plot(xx, lin_w["a"] + lin_w["b"] * tt, "-.", color="navy", lw=1.3,
+    ax.plot(xx, (lin_w["a"] + lin_w["b"] * tt) / U, "-.", color="navy", lw=1.3,
             label=r"Linear, weighted by $1/\sigma_i^2$ ($b{=}%.2f{\times}10^{11}$, $R^2{=}%.3f$)"
                   % (lin_w["b"] / 1e11, lin_w["R2"]))
-    ax.plot(xx, expo["a0"] * np.exp(expo["r"] * tt), "-", color="tab:red", lw=1.6,
-            label=r"Model 2: Exp $r{=}%.2f\%%$/yr ($R^2{=}%.4f$)" % (100 * expo["r"], expo["R2"]))
-    ax.plot(xx, P[0] * (1.0 + KARDASHEV_RATE) ** (xx - years[0]), ":",
+    ax.plot(xx, expo["a0"] * np.exp(expo["r"] * tt) / U, "-", color="tab:red", lw=1.6,
+            label=r"Model 2: Exp $r{=}%.2f\%%$/yr ($R^2{=}%.3f$)" % (100 * expo["r"], expo["R2"]))
+    ax.plot(xx, P[0] * (1.0 + KARDASHEV_RATE) ** (xx - years[0]) / U, ":",
             color="sandybrown", lw=1.6, label="Kardashev $r=1\\%$/yr")
-    ax.axhline(TYPE_I, ls=":", color="olive", lw=1.3,
+    ax.axhline(TYPE_I / U, ls=":", color="olive", lw=1.3,
                label=r"Type I Kardashev 1964 ($4\times10^{12}$ W)")
 
     ax.set_xlim(x_lo, x_hi)
     ax.set_xlabel("Year")
-    ax.set_ylabel("Global Energy Production  (W)")
+    ax.set_ylabel(r"Global Energy Production  ($10^{13}$ W)")
     add_mjd_axis(ax)
     ax.legend(fontsize=7, loc="upper left", framealpha=0.9)
     ax.grid(True, alpha=0.25)
@@ -248,8 +255,9 @@ def figure2_linear(years, P, sigma, lin_unw, lin_w, expo, tag=""):
                 fontsize=22, color="red", alpha=0.25, ha="center", va="center",
                 rotation=20)
     fig.tight_layout()
-    fig.savefig("fig2_energy_linear.pdf")
-    fig.savefig("fig2_energy_linear.png", dpi=300)
+    fig.savefig(os.path.join(FIGDIR, "fig2_energy_linear.pdf"),
+                metadata={"CreationDate": None})
+    fig.savefig(os.path.join(FIGDIR, "fig2_energy_linear.png"), dpi=300)
     plt.close(fig)
 
 
@@ -258,7 +266,8 @@ def figure2_linear(years, P, sigma, lin_unw, lin_w, expo, tag=""):
 # ---------------------------------------------------------------------
 def main():
     ap = argparse.ArgumentParser(description="Draw KSN energy figures with error bars.")
-    ap.add_argument("--csv", help="path to owid-energy-data.csv")
+    ap.add_argument("--csv", default=DEFAULT_CSV,
+                    help="path to the OWID energy CSV (default: the copy in data/)")
     ap.add_argument("--demo", action="store_true", help="synthetic data (testing only)")
     args = ap.parse_args()
 
@@ -270,6 +279,7 @@ def main():
     else:
         sys.exit("Provide --csv /path/to/owid-energy-data.csv  (or --demo to test).")
 
+    os.makedirs(FIGDIR, exist_ok=True)
     sigma = fractional_sigma(years) * P
     t = years - T0
 
@@ -292,8 +302,9 @@ def main():
           f"({abs(lin_w['b']-lin_unw['b'])/lin_w['sigma_b']:.1f} sigma vs the tiny formal error)")
     print(f"  Plotted exponential rate (paper)    : {100*expo['r']:.2f} %/yr  (R^2={expo['R2']:.4f})")
     z = (expo_fit['r'] - KARDASHEV_RATE) / expo_fit['sigma_r']
+    print("  Diagnostics, not quoted in the paper:")
     print(f"  Quick log-space rate (this script)  : {100*expo_fit['r']:.2f} %/yr")
-    print(f"  Rejection of Kardashev 1%/yr        : {z:.0f} sigma  ('tens of sigma')")
+    print(f"  Distance of 1%/yr from that rate    : {z:.0f} sigma (formal error of the log fit)")
     print(bar)
     print("  NOTE: the weighted slope changes by a few percent under the adopted")
     print("  uncertainty model; this does NOT change the rejection of the 1% model")
