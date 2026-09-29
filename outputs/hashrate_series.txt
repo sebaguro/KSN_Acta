@@ -1,0 +1,24 @@
+Days with blocks, 2009-2024: 5836; final height 877263
+Rebuilt daily hashrate vs Coin Metrics: largest relative difference 7.2e-09; days agreeing to 1e-6: 5836
+
+Annual average hashrate (mean of the daily values; 2009 from 3 January)
+year  blocks   H (H/s)     1/sqrt(blocks)
+2009   32494  4.456e+06   0.55%
+2010   67920  1.514e+10   0.38%
+2011   59627  6.314e+12   0.41%
+2012   54526  1.564e+13   0.43%
+2013   63433  1.466e+15   0.40%
+2014   58865  1.407e+17   0.41%
+2015   54321  4.045e+17   0.43%
+2016   54851  1.519e+18   0.43%
+2017   55928  6.315e+18   0.42%
+2018   54498  3.635e+19   0.43%
+2019   54232  6.634e+19   0.43%
+2020   53222  1.196e+20   0.43%
+2021   52686  1.452e+20   0.44%
+2022   53188  2.195e+20   0.43%
+2023   53999  3.814e+20   0.43%
+2024   53473  6.335e+20   0.43%
+
+H(2009) = 4.46 MH/s, H(2024) = 6.34e+20 H/s, span 14.2 dex   [paper: ~4.5 MH/s, ~6.3e20 H/s, 14 orders]
+The random timing of blocks gives each annual mean a statistical uncertainty of 1/sqrt(blocks), under one percent   [paper, Figure 4: of order one percent]

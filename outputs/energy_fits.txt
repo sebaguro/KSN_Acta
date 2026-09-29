@@ -1,0 +1,75 @@
+------------------------------------------------------------------------
+Section 2.1  Data
+------------------------------------------------------------------------
+N = 60 annual points, 1965-2024            [paper: N=60]
+P(1965) = 4.95 TW                        [paper: 4.95 TW]
+P(2024) = 20.16 TW (= 20.2 TW)       [paper: 20.2 TW]
+
+------------------------------------------------------------------------
+Section 2.2  The one-percent model
+------------------------------------------------------------------------
+RSS(one-percent, anchored at 1965) / RSS(linear) = 168   [paper: more than two orders of magnitude]
+  (diagnostic: with its amplitude fitted instead, the ratio is 20)
+Kardashev's own inputs (4e12 W -> 4e26 W at 1%/yr, continuous): 3224 yr after 1964 -> year 5188
+                                          [paper: ~3,200 yr; year ~5200]
+Solar insolation at Earth, S0 pi R^2 = 1.735e+17 W        [paper: 1.74e17 W]
+
+------------------------------------------------------------------------
+Section 2.3  The linear model
+------------------------------------------------------------------------
+b = (2.44 +/- 0.04) x 10^11 W/yr  (1.49 percent)   [paper: (2.44 +/- 0.04)e11, 1.5 percent]
+a = 4.686e+12 W,  R^2 = 0.987                   [paper: R^2 = 0.987]
+Shapiro-Wilk on Delta P: W = 0.925, p = 0.0014, skewness = -0.664   [paper: 0.925, 0.0014, -0.664]
+Years of negative growth: 1980, 1981, 1982, 2009, 2020      [paper: e.g. 2009 and 2020]
+  Delta P(2008) = +184 GW
+  Delta P(2009) = -251 GW
+  Delta P(2020) = -650 GW
+Linear Type II time t* = (L_sun - a)/b = 1.568e+15 yr        [paper: ~1.6e15 yr]
+  in Hubble times (1/H0 = 13.97 Gyr): 1.122e+05      [paper: ~1.1e5]
+  in ages of the Universe (13.8 Gyr): 1.136e+05      [paper: five orders of magnitude]
+
+------------------------------------------------------------------------
+Section 2.4  The free-rate exponential (least squares)
+------------------------------------------------------------------------
+r = 2.01 %/yr, R^2 = 0.987, Delta R^2 = 0.0006   [paper: 2.01, 0.987, < 0.001]
+(the posterior r = 2.01 +/- 0.03 %/yr is in waic_indistinguishability.py)
+Type II year at r = 2.01 %/yr: 3544, i.e. 1.52 kyr after 2024   [paper: ~3500; some 1.5 kyr]
+
+------------------------------------------------------------------------
+Section 2.7  Serial dependence of the growth rates xi = ln(P_t/P_t-1)
+------------------------------------------------------------------------
+lag-one autocorrelation rho_1 = 0.35              [paper: 0.35]
+  Ljung-Box, lags 1-1: Q = 7.8, p = 0.0052
+  Ljung-Box, lags 1-2: Q = 9.3, p = 0.0094
+  Ljung-Box, lags 1-3: Q = 12.3, p = 0.0065
+  Ljung-Box, lags 1-4: Q = 12.8, p = 0.0124
+                                   [paper: Q = 7.8-12.8, p < 0.02]
+Durbin-Watson = 1.25                        [paper: 1.25]
+Runs test (about the mean): z = -2.5, p = 0.014      [paper: z = -2.5, p = 0.014]
+Diagnostics, not quoted in the paper: the same statistics once the trend in the growth rate is removed
+  trend of xi: -0.045 percentage points per yr (t = -3.2, p = 0.0026); fitted rate 3.7% (1966) -> 1.1% (2024)
+  after removing that trend: rho_1 = 0.25; Ljung-Box p (lags 1-4) = 0.048, 0.138, 0.192, 0.306; Durbin-Watson = 1.47; runs p = 0.051
+  absolute increments Delta P: rho_1 = -0.01; Ljung-Box p (lags 1-4) = 0.94, 0.71, 0.82, 0.86; Durbin-Watson = 2.00
+
+------------------------------------------------------------------------
+Sections 2.4 and 3.1  The habitability ceiling (Balbi and Lingam 2025)
+------------------------------------------------------------------------
+ceiling 3e+14 W: 12.1 orders below L_sun, 1.2 orders above P(2024)
+ceiling 1e+15 W: 11.6 orders below L_sun, 1.7 orders above P(2024)
+                  [paper: eleven to twelve orders below L_sun; one to two orders of present power]
+
+------------------------------------------------------------------------
+Section 3.3  Weighted re-analysis (adopted per-year uncertainties)
+------------------------------------------------------------------------
+weighted b = 2.562e+11 W/yr (+4.9 percent), R^2 = 0.977   [paper: 2.56e11, about 5 percent, 0.977]
+weighted RSS(one-percent, anchored) / RSS(linear) = 192   [paper: more than two orders]
+
+------------------------------------------------------------------------
+Tables 1 and 2  (timescales measured from 1964; 1/H0 = 14.0 Gyr)
+------------------------------------------------------------------------
+Kardashev 1964 (fixed r)   Type II year 5.19e+03   Delta t / (1/H0) = 2.3e-07
+Exp. free r (r = 2.01%)    Type II year 3.54e+03   Delta t / (1/H0) = 1.1e-07
+Linear OLS                 Type II year 1.57e+15   Delta t / (1/H0) = 1.1e+05
+   [paper, Table 1: ~5200, ~2e-7; ~3500, ~1e-7; ~1.6e15, ~1.1e5]
+   (the KSN row of Table 1 is computed in landauer_estimate.py)
+Table 2: Kardashev 1964 estimate 4 TW, Type II after 3.2 kyr; OWID 1965 4.95 TW, 1.1e+05 Hubble times

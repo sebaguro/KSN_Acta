@@ -1,0 +1,2 @@
+Shapiro-Wilk on Delta P: W = 0.925, p = 0.0014, skewness = -0.664
+Largest falls: 1980: -78 GW, 1981: -41 GW, 1982: -43 GW, 2009: -251 GW, 2020: -650 GW

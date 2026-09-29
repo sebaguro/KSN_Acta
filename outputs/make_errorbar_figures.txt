@@ -1,0 +1,15 @@
+==================================================================
+  Figures written: fig1_energy_loglog.{pdf,png} , fig2_energy_linear.{pdf,png}
+==================================================================
+  Unweighted (plotted) linear slope b : 2.441e+11 W/yr  (R^2=0.9873)
+  Weighted linear slope b             : 2.562e+11 W/yr  (R^2=0.9771)
+  Slope change under weighting        : +4.9%  (4.0 sigma vs the tiny formal error)
+  Plotted exponential rate (paper)    : 2.01 %/yr  (R^2=0.9867)
+  Diagnostics, not quoted in the paper:
+  Quick log-space rate (this script)  : 2.14 %/yr
+  Distance of 1%/yr from that rate    : 26 sigma (formal error of the log fit)
+==================================================================
+  NOTE: the weighted slope changes by a few percent under the adopted
+  uncertainty model; this does NOT change the rejection of the 1% model
+  or the order-of-magnitude Type II timescale. See Section 3.3.
+==================================================================

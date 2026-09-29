@@ -1,0 +1,55 @@
+1. digests equal to hashlib: 16384 of 16384
+   block 125552, real nonce 2504433986: display hash 00000000000000001e8d6829a8a21adc5d38d0a473b144b6765798e61f98bd1d
+   matches the Bitcoin wiki value: True; H7 of that digest = 0x00000000
+
+2. Plain gate count (every two-input gate instantiated)
+   midstate :  120448   (schedule 27696, rounds 91520, final 1232)
+   inner    :  120448   (schedule 27696, rounds 91520, final 1232)
+   outer    :  120448   (schedule 27696, rounds 91520, final 1232)
+   per nonce (inner + outer) = 240896
+
+3. After constant folding (header fixed, only the nonce varies)
+   midstate :       0 two-input gates, 0 inverters
+   inner    :   98867 two-input gates, 1340 inverters
+   outer    :  106961 two-input gates, 1282 inverters
+   per nonce = 205828
+
+4. Early exit: gates that feed H7 of the final digest
+   inner:schedule :   20361
+   inner:round    :   77898
+   inner:final    :     590
+   outer:schedule :   21727
+   outer:round    :   76824
+   outer:final    :      76
+   per nonce = 197476   (= 1.640 compressions of 120,448)
+
+5. all folded gates: 205828 gates
+   information lost, sum of H(in)-H(out) =    199668 bits = 0.970 bits per gate
+   entropy of outputs, sum of H(out)     =    190473 bits = 0.925 bits per gate
+   XOR:  99499 gates, lost 0.976, H(out) 1.000 bits per gate
+   AND:  72557 gates, lost 1.180, H(out) 0.798 bits per gate
+   OR :  33772 gates, lost 0.501, H(out) 0.980 bits per gate
+
+5. early-exit cone: 197476 gates
+   information lost, sum of H(in)-H(out) =    191620 bits = 0.970 bits per gate
+   entropy of outputs, sum of H(out)     =    182766 bits = 0.926 bits per gate
+   XOR:  95554 gates, lost 0.976, H(out) 1.000 bits per gate
+   AND:  69583 gates, lost 1.180, H(out) 0.798 bits per gate
+   OR :  32339 gates, lost 0.501, H(out) 0.980 bits per gate
+
+(S = 16384 samples; nodes created = 208482)
+
+6. Per round: folded gates / gates in the H7 cone (plain count is 1,430 per round)
+   inner: r00     0/    0, r01     0/    0, r02     0/    0, r03   220/  220, r04   689/  689, r05   848/  830, r58  1342/ 1342, r59  1339/ 1339, r60  1355/ 1355, r61  1350/ 1350, r62  1358/ 1358, r63  1350/ 1350
+   outer: r00   222/  222, r01   842/  842, r02  1008/  992, r03  1113/ 1113, r04  1352/ 1352, r05  1352/ 1352, r58  1342/  842, r59  1339/  839, r60  1355/  855, r61  1350/    0, r62  1358/    0, r63  1350/    0
+
+7. Cell-level Landauer cost, sum of H(in)-H(out) over cells (bits)
+   FA  :  33180 cells,     34407 bits, 1.037 bits per cell
+   HA  :   1106 cells,       460 bits, 0.416 bits per cell
+   MAJ :   3936 cells,      7729 bits, 1.964 bits per cell
+   MUX :   3936 cells,      7721 bits, 1.962 bits per cell
+   XOR3:  14162 cells,     26957 bits, 1.904 bits per cell
+   midstate :      0 cells,         0 bits
+   inner    :  27072 cells,     37166 bits
+   outer    :  29248 cells,     40108 bits
+   per nonce (inner + outer): 77274 bits

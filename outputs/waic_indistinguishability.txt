@@ -1,0 +1,37 @@
+Loaded N = 60 points, 1965-2024, P(1965) = 4.95 TW, P(2024) = 20.16 TW
+
+==================================================================
+  UNWEIGHTED (Sec 2.4 primary)
+==================================================================
+Posterior r (exponential) = 2.01% +/- 0.03% per yr  [paper: 2.01 +/- 0.03]
+  95% credible interval   = [1.94%, 2.08%]  [paper: [1.94%, 2.08%]]
+  samples kept            = 60000
+Posterior b (linear)      = 2.442e+11 W/yr  [paper: 2.44e11]
+
+WAIC_linear      =     87.87
+WAIC_exponential =     91.95
+Delta WAIC (exp - lin) =    +4.08   [paper: about 4]
+SE(Delta WAIC)         =    17.72   [paper: ~18]
+Delta WAIC / SE        =    +0.23
+
+=> STATISTICALLY INDISTINGUISHABLE (|Delta WAIC| < 2 SE); the non-significant edge sits on the linear side.
+
+==================================================================
+  WEIGHTED (Sec 3.3 sensitivity)
+==================================================================
+Weighted linear OLS: b = 2.562e+11 W/yr  [paper Sec 3.3: 2.56e11]
+                     weighted R^2 = 0.977   [paper Sec 3.3: 0.977]
+
+Posterior r (exponential) = 1.98% +/- 0.02% per yr  
+  95% credible interval   = [1.93%, 2.03%]  
+  samples kept            = 60000
+Posterior b (linear)      = 2.560e+11 W/yr  
+
+WAIC_linear      =    166.86
+WAIC_exponential =    116.93
+Delta WAIC (exp - lin) =   -49.92   [paper Sec 3.3: -50]
+SE(Delta WAIC)         =    38.24   [paper Sec 3.3: 38]
+Delta WAIC / SE        =    -1.31
+
+=> STATISTICALLY INDISTINGUISHABLE (|Delta WAIC| < 2 SE); the non-significant edge sits on the exponential side.
+

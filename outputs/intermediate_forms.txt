@@ -1,0 +1,14 @@
+form                       R^2  parameters
+linear                  0.9873  a, b = 4.69e+12, 2.44e+11
+power law               0.9925  A, t0, alpha = 5.46e+12, 61.4, 1.91
+stretched exponential   0.9936  A, tau, beta = 4.89e+12, 36.7, 0.7
+exponential             0.9867  a0, r = 6.2e+12, 0.0201
+
+Years after 2024 at which each form reaches
+form                           3e+14 W         1e+15 W   Type II (L_sun)
+linear                        1.15e+03        4.02e+03   1.57e+15
+power law                          381             822   1.11e+09
+stretched exponential              217             339   5.11e+03
+exponential                        133             193   1.52e+03
+
+Every form reaches the habitability ceiling long before the Type II threshold; the growth law changes the times, not the order.
