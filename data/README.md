@@ -34,6 +34,29 @@ the commit above.
 difficulty epoch: the hash of the epoch's last block and the target of the
 epoch. The difficulty is D = (0xFFFF × 2^208) / target.
 
+## Rebuilding the OWID extract
+
+The OWID extract can be rebuilt from OWID's own file. Download
+`owid-energy-data.csv` at commit `e7897aed55b514b8d16e0a3d8f1518789ac3de31`, for
+example from
+https://raw.githubusercontent.com/owid/energy-data/e7897aed55b514b8d16e0a3d8f1518789ac3de31/owid-energy-data.csv
+(9.2 MB; SHA-256
+`266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76`), and run,
+from the top folder of the repository:
+
+```
+python3 make_owid_extract.py path/to/owid-energy-data.csv
+```
+
+The script checks the SHA-256 of the file, keeps the rows for World from 1965
+to 2024 and the sixteen columns listed above, copies each value exactly as
+written, writes `outputs/owid_world_energy_1965_2024_rebuilt.csv`, and checks
+that it is identical, byte for byte, to `owid_world_energy_1965_2024.csv`
+(SHA-256 `40c03ed590e1a6c0042eff4f63643389a10fb80de80b0a46215005d86be4ff0b`).
+OWID keeps only this CSV under version control; the JSON and XLSX versions of
+the dataset are served from its download site, which holds the latest release
+only, so they are not used here.
+
 ## Licences
 
 The licence of the code in this repository does not extend to these files;
