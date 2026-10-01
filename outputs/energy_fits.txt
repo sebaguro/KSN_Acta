@@ -19,6 +19,7 @@ Section 2.3  The linear model
 ------------------------------------------------------------------------
 b = (2.44 +/- 0.04) x 10^11 W/yr  (1.49 percent)   [paper: (2.44 +/- 0.04)e11, 1.5 percent]
 a = 4.686e+12 W,  R^2 = 0.987                   [paper: R^2 = 0.987]
+rms residual = 0.48 TW = 4 percent of mean P            [paper: 0.48 TW, 4%]
 Shapiro-Wilk on Delta P: W = 0.925, p = 0.0014, skewness = -0.664   [paper: 0.925, 0.0014, -0.664]
 Years of negative growth: 1980, 1981, 1982, 2009, 2020      [paper: e.g. 2009 and 2020]
   Delta P(2008) = +184 GW
@@ -32,6 +33,7 @@ Linear Type II time t* = (L_sun - a)/b = 1.568e+15 yr        [paper: ~1.6e15 yr]
 Section 2.4  The free-rate exponential (least squares)
 ------------------------------------------------------------------------
 r = 2.01 %/yr, R^2 = 0.987, Delta R^2 = 0.0006   [paper: 2.01, 0.987, < 0.001]
+rms residual = 0.49 TW = 4 percent of mean P            [paper: 0.49 TW, 4%]
 (the posterior r = 2.01 +/- 0.03 %/yr is in waic_indistinguishability.py)
 Type II year at r = 2.01 %/yr: 3544, i.e. 1.52 kyr after 2024   [paper: ~3500; some 1.5 kyr]
 

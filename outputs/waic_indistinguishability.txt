@@ -14,7 +14,7 @@ Delta WAIC (exp - lin) =    +4.08   [paper: about 4]
 SE(Delta WAIC)         =    17.72   [paper: ~18]
 Delta WAIC / SE        =    +0.23
 
-=> STATISTICALLY INDISTINGUISHABLE (|Delta WAIC| < 2 SE); the non-significant edge sits on the linear side.
+=> NO SIGNIFICANT PREFERENCE (|Delta WAIC| < 2 SE); the non-significant edge sits on the linear side.
 
 ==================================================================
   WEIGHTED (Sec 3.3 sensitivity)
@@ -33,5 +33,5 @@ Delta WAIC (exp - lin) =   -49.92   [paper Sec 3.3: -50]
 SE(Delta WAIC)         =    38.24   [paper Sec 3.3: 38]
 Delta WAIC / SE        =    -1.31
 
-=> STATISTICALLY INDISTINGUISHABLE (|Delta WAIC| < 2 SE); the non-significant edge sits on the exponential side.
+=> NO SIGNIFICANT PREFERENCE (|Delta WAIC| < 2 SE); the non-significant edge sits on the exponential side.
 

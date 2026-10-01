@@ -1,0 +1,9 @@
+source: owid-energy-data.csv
+  SHA-256 266f2e2baad7975351bc9bb4aa061d22b1da9fe4c47d51d2ac6071e01e171f76
+  matches owid-energy-data.csv at OWID commit e7897ae
+kept 60 rows (World, 1965-2024) and 16 columns
+wrote outputs/owid_world_energy_1965_2024_rebuilt.csv
+  SHA-256 40c03ed590e1a6c0042eff4f63643389a10fb80de80b0a46215005d86be4ff0b
+data/owid_world_energy_1965_2024.csv
+  SHA-256 40c03ed590e1a6c0042eff4f63643389a10fb80de80b0a46215005d86be4ff0b
+IDENTICAL: the extract in data/ is exactly the rebuilt one
