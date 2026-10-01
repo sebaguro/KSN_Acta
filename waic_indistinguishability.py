@@ -2,10 +2,12 @@
 """
 waic_indistinguishability.py
 ----------------------------
-Demonstrates that a linear OLS model and a free-rate exponential model are
-statistically indistinguishable descriptions of the 1965-2024 global
-primary-energy record, by computing WAIC for both models and -- the crucial
-step -- the standard error of the WAIC difference.
+Compares a linear OLS model and a free-rate exponential model of the
+1965-2024 global primary-energy record with the Widely Applicable
+Information Criterion (WAIC). It computes WAIC for both models and, the
+crucial step, the standard error of the WAIC difference: the difference
+lies within two standard errors, so model selection gives no significant
+preference between the two models.
 
 Two modes, matching the paper:
 
@@ -26,10 +28,11 @@ Two modes, matching the paper:
 Expected behaviour (the point of the exercise):
   * Unweighted: Delta WAIC = about +4 (linear side), SE ~ 18  ->  ~0.2 SE.
   * Weighted:   Delta WAIC ~ -50 (exponential side), SE ~ 38  ->  ~1.3 SE.
-  The mild, non-significant edge FLIPS SIGN with the error treatment --
-  fractional-error weighting is nearly a log-space fit, the exponential's
-  home turf -- while neither treatment ever approaches the 2*SE threshold.
-  The only conclusion robust to the error model is indistinguishability.
+  The mild, non-significant edge FLIPS SIGN with the error treatment
+  (fractional-error weighting is nearly a log-space fit, the exponential's
+  home turf), while neither treatment ever approaches the 2*SE threshold.
+  The only conclusion robust to the error model is that neither model is
+  significantly preferred.
 
 Method references:
   WAIC              : Watanabe (2010), J. Mach. Learn. Res. 11, 3571
@@ -234,8 +237,9 @@ def run_analysis(yrs, t, P, weighted):
     print(f"SE(Delta WAIC)         = {se:8.2f}"
           f"   {'[paper: ~18]' if not weighted else '[paper Sec 3.3: 38]'}")
     print(f"Delta WAIC / SE        = {dWAIC/se:+8.2f}")
-    verdict = ("STATISTICALLY INDISTINGUISHABLE (|Delta WAIC| < 2 SE)"
-               if abs(dWAIC) < 2 * se else "genuine model preference (>2 SE)")
+    verdict = ("NO SIGNIFICANT PREFERENCE (|Delta WAIC| < 2 SE)"
+               if abs(dWAIC) < 2 * se
+               else "SIGNIFICANT PREFERENCE (|Delta WAIC| >= 2 SE)")
     side = "linear" if dWAIC > 0 else "exponential"
     print(f"\n=> {verdict}; the non-significant edge sits on the {side} side.\n")
 

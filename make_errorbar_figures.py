@@ -155,9 +155,17 @@ def display_exponential(years, P, r=EXP_RATE_DISPLAY):
 # ---------------------------------------------------------------------
 #  FIGURES
 # ---------------------------------------------------------------------
-def add_mjd_axis(ax):
+def add_mjd_axis(ax, millions=False):
+    """Modified Julian Date along the top axis. With millions=True
+    (Figure 1, whose dates reach 2.2 million) the ticks are given in
+    units of 10^6 days, stated in the label, instead of matplotlib's
+    separate "1e6" at the end of the axis."""
     sec = ax.secondary_xaxis("top", functions=(year_to_mjd, mjd_to_year))
-    sec.set_xlabel("Modified Julian Date")
+    if millions:
+        sec.xaxis.set_major_formatter(lambda v, pos: f"{v / 1e6:.2f}")
+        sec.set_xlabel(r"Modified Julian Date  ($10^{6}$ d)")
+    else:
+        sec.set_xlabel("Modified Julian Date")
 
 
 def figure1_loglog(years, P, sigma, lin_unw, lin_w, expo, tag=""):
@@ -202,7 +210,7 @@ def figure1_loglog(years, P, sigma, lin_unw, lin_w, expo, tag=""):
     ax.set_ylim(1e11, 3e27)
     ax.set_xlabel("Year")
     ax.set_ylabel("Global Energy Production  (W)")
-    add_mjd_axis(ax)
+    add_mjd_axis(ax, millions=True)
     ax.legend(fontsize=6.5, ncol=2, loc="lower center", framealpha=0.9)
     ax.grid(True, which="major", alpha=0.25)
     if tag == "demo":

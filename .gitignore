@@ -1,2 +1,3 @@
 __pycache__/
 *.pyc
+outputs/owid_world_energy_1965_2024_rebuilt.csv

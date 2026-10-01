@@ -103,6 +103,10 @@ def main():
     print(f"b = ({b / 1e11:.2f} +/- {sb / 1e11:.2f}) x 10^11 W/yr"
           f"  ({100 * sb / b:.2f} percent)   [paper: (2.44 +/- 0.04)e11, 1.5 percent]")
     print(f"a = {a:.3e} W,  R^2 = {R2l:.3f}                   [paper: R^2 = 0.987]")
+    rms_l = np.sqrt(np.mean(res_l ** 2))
+    print(f"rms residual = {rms_l / 1e12:.2f} TW = "
+          f"{100 * rms_l / P.mean():.0f} percent of mean P"
+          "            [paper: 0.48 TW, 4%]")
     dP = np.diff(P)
     W, p = stats.shapiro(dP)
     print(f"Shapiro-Wilk on Delta P: W = {W:.3f}, p = {p:.4f}, skewness = "
@@ -128,6 +132,10 @@ def main():
     R2e = 1 - np.sum((P - a0 * np.exp(r * t)) ** 2) / np.sum((P - P.mean()) ** 2)
     print(f"r = {100 * r:.2f} %/yr, R^2 = {R2e:.3f}, Delta R^2 = {R2l - R2e:.4f}"
           "   [paper: 2.01, 0.987, < 0.001]")
+    rms_e = np.sqrt(np.mean((P - a0 * np.exp(r * t)) ** 2))
+    print(f"rms residual = {rms_e / 1e12:.2f} TW = "
+          f"{100 * rms_e / P.mean():.0f} percent of mean P"
+          "            [paper: 0.49 TW, 4%]")
     print("(the posterior r = 2.01 +/- 0.03 %/yr is in waic_indistinguishability.py)")
     r_post = 0.0201
     e = np.exp(r_post * t)

@@ -35,6 +35,7 @@ Python 3.11 and the versions in `requirements.txt`.
 | Section 2.1: the hashrate H(t), checked against the difficulty record | `hashrate_series.py` |
 | Section 2.2: the one-percent model | `energy_fits.py` |
 | Section 2.3: the linear model, the Shapiro-Wilk test on ΔP, Eq. (5) | `energy_fits.py` |
+| Sections 2.3 and 2.4, and the Conclusions: the root-mean-square residuals of the two fits | `energy_fits.py`; step by step, with the χ² of both fits against the adopted uncertainties, `rms_residuals.py` |
 | Section 2.4: the posterior growth rate (MCMC) and the WAIC comparison with its standard error | `waic_indistinguishability.py` |
 | Section 2.4: the least-squares exponential and the habitability ceiling | `energy_fits.py` |
 | Section 2.4: growth laws between the linear and the exponential | `intermediate_forms.py` |
@@ -77,8 +78,12 @@ with 16,384 samples, the number used for the paper.
 Each file is an extract of a fixed version of its source; `data/README.md`
 gives the versions, the columns, the licences and the credits. The scripts
 read only these copies, so the results do not change when the sources are
-revised. The licence of the code does not extend to the data files, and the
-Coin Metrics extract may not be used commercially.
+revised. `make_owid_extract.py` rebuilds the OWID extract from OWID's own file
+at the pinned version and checks that it is identical, byte for byte, to the
+copy in `data/` (`data/README.md` says how); it is not run by `run_all.sh`,
+because it needs OWID's file, which is not kept here. The licence of the code
+does not extend to the data files, and the Coin Metrics extract may not be
+used commercially.
 
 ## Notes
 
