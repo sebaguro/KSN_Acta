@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")"
 mkdir -p outputs/figures
 for s in energy_fits rms_residuals waic_indistinguishability convention_refit hashrate_series \
-         nb_gate_count landauer_estimate intermediate_forms make_errorbar_figures \
+         nb_gate_count landauer_estimate make_errorbar_figures \
          make_fig3_deltaP make_fig4_ksn; do
     echo "== $s.py"
     case "$s" in

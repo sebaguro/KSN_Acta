@@ -38,7 +38,6 @@ Python 3.11 and the versions in `requirements.txt`.
 | Sections 2.3 and 2.4, and the Conclusions: the root-mean-square residuals of the two fits | `energy_fits.py`; step by step, with the χ² of both fits against the adopted uncertainties, `rms_residuals.py` |
 | Section 2.4: the posterior growth rate (MCMC) and the WAIC comparison with its standard error | `waic_indistinguishability.py` |
 | Section 2.4: the least-squares exponential and the habitability ceiling | `energy_fits.py` |
-| Section 2.4: growth laws between the linear and the exponential | `intermediate_forms.py` |
 | Section 2.5: N_b and B_min | `nb_gate_count.py`, `landauer_estimate.py` |
 | Section 2.6: f, ε_hw, the hardware factor and the time to the practical floor | `landauer_estimate.py` |
 | Section 2.7: serial dependence of the growth rates | `energy_fits.py` |

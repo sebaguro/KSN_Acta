@@ -9,10 +9,10 @@ The OWID column primary_energy_consumption follows the input-equivalent
 nuclear, hydro, wind and solar sources is counted as the fossil fuel that
 would have been needed to generate it. This script
   1. shows that convention in the data (consumption / electricity ratios),
-  2. rebuilds the series on the direct basis (that electricity counted as
-     generated; fossil fuels, biofuels and other renewables at their input),
-     and on the physical-content basis (nuclear electricity counted as the
-     heat released in the reactor, at an efficiency of 33 percent),
+  2. rebuilds the series on the direct basis (the published total with that
+     electricity counted as generated, and nothing else changed), and on the
+     physical-content basis (nuclear electricity counted as the heat released
+     in the reactor, at an efficiency of 33 percent),
   3. refits the linear and free-rate exponential models on each basis.
 
 Usage:  python3 convention_refit.py
@@ -60,17 +60,22 @@ def main():
     pub = np.array([rows[y]["primary_energy_consumption"] for y in years])
     print(f"   check: fossil + nuclear + renewables = {100 * (comp / pub).min():.1f} to "
           f"{100 * (comp / pub).max():.1f} percent of the published total")
+    print("   (the components do not add up exactly to the published total, so each basis"
+          " below keeps that total and changes only the electricity of the four sources)")
 
     def basis(nuclear_factor, other_ren_at="input"):
+        """The published total with the electricity of the four sources recounted:
+        hydro, wind and solar as generated, nuclear as nuclear_factor times the
+        electricity generated (1 on the direct basis, 1/0.33 for reactor heat)."""
         out = []
         for y in years:
             r = rows[y]
-            e = (r["fossil_fuel_consumption"] + r["biofuel_consumption"]
-                 + (r["other_renewable_consumption"] if other_ren_at == "input"
-                    else r["other_renewable_electricity"])
-                 + nuclear_factor * r["nuclear_electricity"]
-                 + r["hydro_electricity"] + r["wind_electricity"]
-                 + r["solar_electricity"])
+            e = r["primary_energy_consumption"]
+            e -= r["nuclear_consumption"] - nuclear_factor * r["nuclear_electricity"]
+            for src in ("hydro", "wind", "solar"):
+                e -= r[src + "_consumption"] - r[src + "_electricity"]
+            if other_ren_at == "electricity":
+                e -= r["other_renewable_consumption"] - r["other_renewable_electricity"]
             out.append(e)
         return np.array(out)
 
@@ -86,7 +91,7 @@ def main():
             continue
         print(f"   {name:50s} 1965: {100 * (E[0] / pub[0] - 1):+.1f}%   "
               f"2024: {100 * (E[-1] / pub[-1] - 1):+.1f}%")
-    print("   [paper: on the direct basis 4 percent lower in 1965 and 11 percent lower in 2024]")
+    print("   [paper: on the direct basis 4 percent lower in 1965 and 10 percent lower in 2024]")
     phys, direct = series["physical content"], series["direct"]
     between = np.all((phys >= direct) & (phys <= pub))
     print(f"   physical content lies between direct and published in every year: {between}")
@@ -99,7 +104,7 @@ def main():
         print(f"   {name:50s} b = ({b / 1e11:.2f} +/- {sb / 1e11:.2f})e11 W/yr, "
               f"R2 {R2l:.3f}; r = {100 * r:.2f} +/- {100 * sr:.2f} %/yr, R2 {R2e:.3f}; "
               f"Type II after {tstar / HUBBLE_TIME_YR:.2e} Hubble times")
-    print("   [paper, direct basis: b = 2.16e11 W/yr, ~1.3e5 Hubble times, r = 1.94 %/yr;"
+    print("   [paper, direct basis: b = 2.18e11 W/yr, ~1.3e5 Hubble times, r = 1.94 %/yr;"
           " physical content between the two]")
 
 
