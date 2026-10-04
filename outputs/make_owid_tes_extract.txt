@@ -1,0 +1,9 @@
+source: owid_energy.csv
+  SHA-256 9d8efc4a9b1cc2ffdfa7f7f6f1e171b2922e0be2d97c0edf2982e874357ed6de
+  matches owid_energy.csv, OWID release of 10 September 2026, as used here
+kept 60 rows (World, 1965-2024) and 11 columns
+rebuilt extract: 5544 bytes
+  SHA-256 adfa189c385fbb823da7d79c3173483303ccdc1b1cf93bf4010fe1af818bb235
+data/owid_world_total_energy_supply_1965_2024.csv
+  SHA-256 adfa189c385fbb823da7d79c3173483303ccdc1b1cf93bf4010fe1af818bb235
+IDENTICAL: the extract in data/ is exactly the rebuilt one

@@ -1,24 +1,58 @@
-1. The published series is the substitution convention
+1. The series analysed follows the substitution convention
+   (OWID release of 27 April 2026, column primary_energy_consumption)
    consumption / electricity generated, by source:
    1965: nuclear 2.78, hydro 2.78
    1990: nuclear 2.78, hydro 2.78, wind 2.78, solar 2.78
    2000: nuclear 2.82, hydro 2.80, wind 2.80, solar 2.88
    2010: nuclear 2.64, hydro 2.61, wind 2.61, solar 2.74
    2024: nuclear 2.47, hydro 2.45, wind 2.44, solar 2.40
-   (1/0.36 = 2.78 until 2000; about 2.4-2.5 by 2024, an efficiency of about 40 percent)   [paper: 36 percent until 2000, about 40 percent by 2024; some 2.5 to 2.8 times]
+   the four sources together: 2.445 times the electricity generated in 2024, the lowest value, and 2.808 in 2000, the highest   [paper: some 2.4 to 2.8 times]
+   as a conversion efficiency: 36.0 percent in every year from 1965 to 1999, 35.6 percent in 2000 and 40.9 percent in 2024   [paper: 36 percent until 2000, about 41 percent by 2024]
    check: fossil + nuclear + renewables = 99.2 to 99.6 percent of the published total
-   (the components do not add up exactly to the published total, so each basis below keeps that total and changes only the electricity of the four sources)
+   (the components do not add up exactly to the published total, so each recount below keeps that total and changes only the electricity of the four sources)
 
-2. The series on each basis, relative to the published one
-   direct                                             1965: -3.9%   2024: -9.7%
-   physical content                                   1965: -3.8%   2024: -6.5%
-   direct, other renewables at electricity (variant)  1965: -4.0%   2024: -10.7%
-   [paper: on the direct basis 4 percent lower in 1965 and 10 percent lower in 2024]
-   physical content lies between direct and published in every year: True
+2. The other two conventions, relative to the series analysed
+   a. direct: the release analysed, recounted
+      1965: -3.9%   2024: -9.7%   [paper: 4 percent lower in 1965 and 10 percent lower in 2024]
+      variant, other renewables also counted at their electricity: 1965: -4.0%   2024: -10.7%
+   b. third: the total energy supply of the OWID release of 10 September 2026, as published (column total_energy_twh)
+      it follows the third convention: energy counted / electricity generated, 1965-2024:
+        nuclear  3.03 to 3.08   (3.07 in 2024)
+        hydro    1.00 to 1.01   (1.01 in 2024)
+        wind     1.00 to 1.01   (1.00 in 2024)
+        solar    1.00 to 1.07   (1.01 in 2024)
+      1965: -4.1%   2024: -6.9%   [paper: 4 percent lower in 1965 and 7 percent lower in 2024]
+   c. third: the release analysed, recounted (nuclear electricity as reactor heat, efficiency 0.33)
+      1965: -3.8%   2024: -6.5%
+      the published total energy supply (b) is 0.07 to 0.91 percent lower than this recount
 
-3. Refits
-   published (substitution)                           b = (2.44 +/- 0.04)e11 W/yr, R2 0.987; r = 2.01 +/- 0.03 %/yr, R2 0.987; Type II after 1.12e+05 Hubble times
-   direct                                             b = (2.18 +/- 0.04)e11 W/yr, R2 0.983; r = 1.94 +/- 0.03 %/yr, R2 0.985; Type II after 1.26e+05 Hubble times
-   physical content                                   b = (2.31 +/- 0.03)e11 W/yr, R2 0.989; r = 1.97 +/- 0.04 %/yr, R2 0.983; Type II after 1.19e+05 Hubble times
-   direct, other renewables at electricity (variant)  b = (2.15 +/- 0.04)e11 W/yr, R2 0.984; r = 1.93 +/- 0.03 %/yr, R2 0.984; Type II after 1.27e+05 Hubble times
-   [paper, direct basis: b = 2.18e11 W/yr, ~1.3e5 Hubble times, r = 1.94 %/yr; physical content between the two]
+3. Least-squares fits on each series
+   substitution (the series analysed)
+      linear: b = (2.44 +/- 0.04)e11 W/yr, R2 0.987; Type II after 1.12e+05 Hubble times
+      exponential: r = 2.01 +/- 0.03 %/yr, R2 0.987; Type II 1.52 kyr after 2024
+      one-percent model: RSS(one-percent, anchored at 1965) / RSS(linear) = 168
+      [paper: b = 2.44e11, ~1.1e5 Hubble times, r = 2.01]
+   direct (release analysed, recounted)
+      linear: b = (2.18 +/- 0.04)e11 W/yr, R2 0.983; Type II after 1.26e+05 Hubble times
+      exponential: r = 1.94 +/- 0.03 %/yr, R2 0.985; Type II 1.58 kyr after 2024
+      one-percent model: RSS(one-percent, anchored at 1965) / RSS(linear) = 123
+      [paper: b = 2.18e11, ~1.3e5 Hubble times, r = 1.94]
+   third (total energy supply, as published)
+      linear: b = (2.30 +/- 0.03)e11 W/yr, R2 0.989; Type II after 1.19e+05 Hubble times
+      exponential: r = 1.96 +/- 0.04 %/yr, R2 0.982; Type II 1.56 kyr after 2024
+      one-percent model: RSS(one-percent, anchored at 1965) / RSS(linear) = 190
+      [paper: b = 2.30e11, ~1.2e5 Hubble times, r = 1.96]
+   third (release analysed, recounted)
+      linear: b = (2.31 +/- 0.03)e11 W/yr, R2 0.989; Type II after 1.19e+05 Hubble times
+      exponential: r = 1.97 +/- 0.04 %/yr, R2 0.983; Type II 1.55 kyr after 2024
+      one-percent model: RSS(one-percent, anchored at 1965) / RSS(linear) = 192
+   [paper: under each of the three conventions the one-percent rate is excluded]
+
+4. Model comparison on each series (as in waic_indistinguishability.py, unweighted)
+   Delta WAIC = WAIC(exponential) - WAIC(linear); positive values favour the linear form
+   substitution (the series analysed)         Delta WAIC =  +4.08, standard error 17.72, ratio +0.23   [paper: 4 +/- 18]
+   direct (release analysed, recounted)       Delta WAIC =  -3.83, standard error 15.63, ratio -0.24   [paper: -4 +/- 16]
+   third (total energy supply, as published)  Delta WAIC = +29.34, standard error 16.33, ratio +1.80   [paper: 29 +/- 16; 1.8 standard errors]
+   third (release analysed, recounted)        Delta WAIC = +26.96, standard error 16.87, ratio +1.60   [paper: 27 +/- 17]
+   (the first line repeats, for the series analysed, the unweighted result of waic_indistinguishability.py)
+   largest |Delta WAIC| / standard error = 1.80: below 2 on every series, so neither form is significantly preferred under any convention   [paper: no significant preference under each of the three conventions]
