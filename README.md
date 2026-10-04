@@ -43,7 +43,7 @@ Python 3.11 and the versions in `requirements.txt`.
 | Section 2.7: serial dependence of the growth rates | `energy_fits.py` |
 | Section 3.1: the habitability ceiling relative to L_sun and to present power | `energy_fits.py` |
 | Section 3.2, criterion 3 | `landauer_estimate.py` |
-| Section 3.3: the energy-accounting conventions | `convention_refit.py` |
+| Sections 2.1 and 3.3: the energy-accounting conventions, with the fits and the model comparison under each | `convention_refit.py` |
 | Section 3.3: the weighted re-analysis | `energy_fits.py`, `waic_indistinguishability.py --weighted` |
 | Table 1 | `energy_fits.py`; the KSN row, `landauer_estimate.py` |
 | Table 2 | `energy_fits.py` |
@@ -70,19 +70,21 @@ with 16,384 samples, the number used for the paper.
 
 | File | Source | Licence |
 |---|---|---|
-| `data/owid_world_energy_1965_2024.csv` | Our World in Data, energy dataset: world primary energy, 1965-2024 | CC BY 4.0 for OWID's work; the underlying Energy Institute, EIA and Ember data keep their providers' terms |
+| `data/owid_world_energy_1965_2024.csv` | Our World in Data, energy dataset, release of 27 April 2026: world primary energy, 1965-2024 (the series the paper analyses) | CC BY 4.0 for OWID's work; the underlying Energy Institute, EIA and Ember data keep their providers' terms |
+| `data/owid_world_total_energy_supply_1965_2024.csv` | Our World in Data, energy dataset, release of 10 September 2026: world total energy supply, 1965-2024 (used only in `convention_refit.py`) | the terms of the original sources, as OWID states for that release |
 | `data/coinmetrics_btc_2009_2024.csv` | Coin Metrics community network data: daily blocks and hashrate of Bitcoin, 2009-2024 | CC BY-NC 4.0 |
 | `data/electrum_mainnet_checkpoints.json` | Electrum Bitcoin wallet: the difficulty target of every 2016-block epoch | MIT |
 
 Each file is an extract of a fixed version of its source; `data/README.md`
 gives the versions, the columns, the licences and the credits. The scripts
 read only these copies, so the results do not change when the sources are
-revised. `make_owid_extract.py` rebuilds the OWID extract from OWID's own file
-at the pinned version and checks that it is identical, byte for byte, to the
-copy in `data/` (`data/README.md` says how); it is not run by `run_all.sh`,
-because it needs OWID's file, which is not kept here. The licence of the code
-does not extend to the data files, and the Coin Metrics extract may not be
-used commercially.
+revised. `make_owid_extract.py` rebuilds the first OWID extract from OWID's
+own file at the pinned version and checks that it is identical, byte for byte,
+to the copy in `data/` (`data/README.md` says how); `make_owid_tes_extract.py`
+does the same for the second. Neither is run by `run_all.sh`, because they
+need OWID's files, which are not kept here. The licence of the code does not
+extend to the data files, and the Coin Metrics extract may not be used
+commercially.
 
 ## Notes
 
@@ -98,6 +100,13 @@ used commercially.
   percent in 2000 and constant thereafter.
 - The Hubble time is 1/H0 with H0 = 70 km/s/Mpc, that is 13.97 Gyr.
 - The MCMC sampler uses a fixed random seed, so its results repeat exactly.
+  With another seed the last digits change: the differences in WAIC by a few
+  tenths, and their standard errors by one or two tenths.
+- The paper analyses the OWID series of the release of 27 April 2026, which
+  follows the substitution convention. `convention_refit.py` repeats the
+  fits and the model comparison under the other two conventions (Section
+  3.3), with the sampler, seed and settings of
+  `waic_indistinguishability.py`.
 
 Earlier versions of this repository held the LaTeX source of the submitted
 manuscript; it remains in the history.
