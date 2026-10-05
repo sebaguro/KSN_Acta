@@ -22,8 +22,8 @@ sh run_all.sh
 ```
 
 `run_all.sh` runs every script, writing the printed results to
-`outputs/<script>.txt` and the figures to `outputs/figures/`. Each printed
-quantity is followed by the value the paper states, as `[paper: ...]`. The run
+`outputs/<script>.txt` and the figures to `outputs/figures/`. Where the paper states a
+printed quantity, the value it states follows as `[paper: ...]`. The run
 takes under a minute. The files in `outputs/` were produced in this way, with
 Python 3.11 and the versions in `requirements.txt`.
 
