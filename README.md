@@ -107,6 +107,10 @@ commercially.
   fits and the model comparison under the other two conventions (Section
   3.3), with the sampler, seed and settings of
   `waic_indistinguishability.py`.
+- The scripts were written or revised, and tested,
+  with the assistance of Claude (Anthropic), as
+  Section 2.1 of the paper describes. Running them
+  does not involve that tool.
 
 Earlier versions of this repository held the LaTeX source of the submitted
 manuscript; it remains in the history.
